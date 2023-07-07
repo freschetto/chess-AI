@@ -34,7 +34,7 @@ class Pawn(Piece):
             dx, dy = move
             x, y = self.pos[0] + dx, self.pos[1] + dy
 
-            if 0 <= x < 8 and 0 <= y < 8 and board.occupied_by_enemy(self.name, (x, y)):
+            if 0 <= x < 8 and 0 <= y < 8 and board.is_enemy(self.name, (x, y)):
 
                 valid_moves.append((x, y))
 

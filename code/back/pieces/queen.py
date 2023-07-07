@@ -25,7 +25,7 @@ class Queen(Piece):
                 if board.is_empty((x, y)):  # if empty it can move
                     valid_moves.append((x, y))
 
-                elif board.occupied_by_enemy(self.name, (x, y)):  # rook can capture if there is an enemy
+                elif board.is_enemy(self.name, (x, y)):  # rook can capture if there is an enemy
                     valid_moves.append((x, y))
                     break
 
@@ -46,7 +46,7 @@ class Queen(Piece):
                 if board.is_empty((x, y)):  # if empty it can move
                     valid_moves.append((x, y))
 
-                elif board.occupied_by_enemy(self.name, (x, y)):  # rook can capture if there is an enemy
+                elif board.is_enemy(self.name, (x, y)):  # rook can capture if there is an enemy
                     valid_moves.append((x, y))
                     break
 

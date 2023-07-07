@@ -23,7 +23,7 @@ class Knight(Piece):
 
             if 0 <= x < 8 and 0 <= y < 8:  # they must stay in the board
 
-                if board.is_empty((x, y)) or board.occupied_by_enemy(self.name, (x, y)):
+                if board.is_empty((x, y)) or board.is_enemy(self.name, (x, y)):
                     valid_moves.append((x, y))
 
         return valid_moves
