@@ -31,10 +31,11 @@ class Surface:
 
         return screen
 
+    # ------------------------------------------------------------------------------------------------------------------
+
     def draw(self):  # DRAW ALL THINGS
 
-        self.board.draw(self.screen)
-        self.board.draw_pieces(self.screen, self.game.board.pieces_on_board)
+        self.board.draw(self.screen, self.game.board, self.game.selected_piece)
 
         pygame.display.flip()  # flip() the display to put your work on screen
 
@@ -46,14 +47,16 @@ class Surface:
 
             square = self.board.pick_mouse_square(pygame.mouse.get_pos())
 
-            # check events to see if user closed the window
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
-            # check if the user clicked the mouse
             elif event.type == pygame.MOUSEBUTTONDOWN:
 
-                self.board.selected_square(square.pos)
+                self.board.selected_square(square)
 
                 self.game.user_input(square.pos)  # UPDATE BACKEND
+
+            elif event.type == pygame.MOUSEMOTION and not square.proprieties["selected"]:
+
+                self.board.hover_square(self.game.board.visual_board[square.pos[1]][square.pos[0]], square)
