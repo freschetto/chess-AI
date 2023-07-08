@@ -41,6 +41,9 @@ class Game:
         elif self.selected_piece is not None and self.valid_move(pos):  # MOVE
             self.move_piece(self.selected_piece, pos)
 
+        else:  # CAN'T DO ANYTHING
+            self.selected_piece = None
+
     # ------------------------------------------------------------------------------------------------------------------
 
     def valid_move(self, pos):
