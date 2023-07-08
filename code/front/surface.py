@@ -31,10 +31,11 @@ class Surface:
 
         return screen
 
+    # ------------------------------------------------------------------------------------------------------------------
+
     def draw(self):  # DRAW ALL THINGS
 
-        self.board.draw(self.screen)
-        self.board.draw_pieces(self.screen, self.game.board.pieces_on_board)
+        self.board.draw(self.screen, self.game.board, self.game.selected_piece)
 
         pygame.display.flip()  # flip() the display to put your work on screen
 
@@ -56,7 +57,6 @@ class Surface:
 
                 self.game.user_input(square.pos)  # UPDATE BACKEND
 
-            elif event.type == pygame.MOUSEMOTION:
+            elif event.type == pygame.MOUSEMOTION and not square.proprieties["selected"]:
 
-                if not square.proprieties["selected"]:
-                    self.board.hover_square(self.game.board.visual_board[square.pos[1]][square.pos[0]], square)
+                self.board.hover_square(self.game.board.visual_board[square.pos[1]][square.pos[0]], square)
