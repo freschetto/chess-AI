@@ -22,10 +22,16 @@ class Board:
     def pick_mouse_square(self, pos):  # pick what square of the board we are with mouse
         return self.board[int(pos[1] / SQUARE_SIZE)][int(pos[0] / SQUARE_SIZE)]
 
-    def selected_square(self, pos):  # change color and remove old square selected
-        self.board[pos[1]][pos[0]].change_color("selected")
-        for square in (sq for line in self.board for sq in line if sq.proprieties["selected"] and sq.pos != pos):
-            square.color = square.standard_color(square.pos[1], square.pos[0])
+    def selected_square(self, square):  # change color and remove old square selected
+        square.change_color("selected")
+        for sq in (sq for line in self.board for sq in line if sq.proprieties["selected"] and sq.pos != square.pos):
+            sq.color = sq.standard_color("selected", sq.pos[0], sq.pos[1])
+
+    def hover_square(self, content, square):  # change color and remove old square hover
+        square.change_color("hover") if content != '  ' else None
+        for sq in (sq for line in self.board for sq in line if sq.proprieties["hover"] and sq.pos != square.pos):
+            if not sq.proprieties["selected"]:
+                sq.color = sq.standard_color("hover", sq.pos[0], sq.pos[1])
 
     def draw(self, screen):  # draw every square in board
         for row, col, square in ((row, col, sq) for row, line in enumerate(self.board) for col, sq in enumerate(line)):

@@ -10,10 +10,10 @@ class Square:
     def __init__(self, x, y):
         self.pos = (x, y)  # where is the square
         self.proprieties = {"selected": False, "hover": False, "checkmate": False}
-        self.color = self.standard_color(x, y)
+        self.color = self.standard_color(None, x, y)
 
-    def standard_color(self, row, col):  # this func() return color of square
-        self.proprieties = {key: False for key in self.proprieties}
+    def standard_color(self, action, row, col):  # this func() return color of square
+        self.proprieties[action] = False
         return SQUARE_COLOR["BLACK"] if (row + col) % 2 == 0 else SQUARE_COLOR["WHITE"]
 
     def change_color(self, action):
