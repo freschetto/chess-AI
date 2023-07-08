@@ -2,21 +2,20 @@
     This is our class for square in chess board
 """
 
+from code.front.constant import SQUARE_COLOR
+
 
 class Square:
 
     def __init__(self, x, y):
-        self.position = (x, y)  # where is the square
-        self.proprieties = {
-            "color": self.standard_color(x, y),
-            "selected": False,
-            "hover": False
-        }
+        self.pos = (x, y)  # where is the square
+        self.proprieties = {"selected": False, "hover": False, "checkmate": False}
+        self.color = self.standard_color(x, y)
 
-    @staticmethod
-    def standard_color(row, col):  # this func() return color of square
-        return (100, 100, 100) if (row + col) % 2 == 0 else (200, 200, 200)
+    def standard_color(self, row, col):  # this func() return color of square
+        self.proprieties = {key: False for key in self.proprieties}
+        return SQUARE_COLOR["BLACK"] if (row + col) % 2 == 0 else SQUARE_COLOR["WHITE"]
 
     def change_color(self, action):
         self.proprieties[action] = True
-        self.proprieties["color"] = (0, 200, 0) if self.proprieties["selected"] else (200, 200, 0)
+        self.color = SQUARE_COLOR[action.upper()]
