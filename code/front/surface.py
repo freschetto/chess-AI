@@ -35,7 +35,7 @@ class Surface:
 
     def draw(self):  # DRAW ALL THINGS
 
-        self.board.(self.screen, self.game.board, self.game.selected_piece)
+        self.board.draw(self.screen, self.game.board, self.game.selected_piece)
 
         pygame.display.flip()  # flip() the display to put your work on screen
 
