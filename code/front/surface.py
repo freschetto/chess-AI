@@ -4,7 +4,7 @@ import pygame
 
 from code.back.game import Game
 from code.front.board import Board
-from code.front.constant import DISPLAY_WIDTH, DISPLAY_HEIGHT
+from code.front.constant import DISPLAY_WIDTH, DISPLAY_HEIGHT, BOARD_X, BOARD_Y, BOARD_SIZE
 
 
 class Surface:
@@ -45,7 +45,7 @@ class Surface:
 
         for event in pygame.event.get():
 
-            square = self.board.pick_mouse_square(pygame.mouse.get_pos())
+            x, y = pygame.mouse.get_pos()
 
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -53,10 +53,16 @@ class Surface:
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
 
-                self.board.selected_square(square)
+                if BOARD_X < x < BOARD_SIZE + BOARD_X and BOARD_Y < y < BOARD_SIZE + BOARD_Y:
+                    square = self.board.pick_mouse_square((x, y))
 
-                self.game.user_input(square.pos)  # UPDATE BACKEND
+                    self.board.selected_square(square)  # GRAPHIC
+                    self.game.user_input(square.pos)  # UPDATE BACKEND
 
-            elif event.type == pygame.MOUSEMOTION and not square.proprieties["selected"]:
+            elif event.type == pygame.MOUSEMOTION:
 
-                self.board.hover_square(self.game.board.visual_board[square.pos[1]][square.pos[0]], square)
+                if BOARD_X < x < BOARD_SIZE + BOARD_X and BOARD_Y < y < BOARD_SIZE + BOARD_Y:
+                    square = self.board.pick_mouse_square((x, y))
+
+                    if not square.proprieties["selected"]:  # GRAPHIC
+                        self.board.hover_square(self.game.board.visual_board[square.pos[1]][square.pos[0]], square)
